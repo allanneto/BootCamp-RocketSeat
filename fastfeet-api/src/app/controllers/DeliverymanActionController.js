@@ -4,7 +4,7 @@ import Deliveryman from '../models/Deliveryman';
 import Delivery from '../models/Delivery';
 
 class DeliverymanActionController {
-  async store(req, res) {
+  async index(req, res) {
     const { ended = 'true' } = req.params;
     const { id } = req.params;
 
