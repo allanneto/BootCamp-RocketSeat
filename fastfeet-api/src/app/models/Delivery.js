@@ -18,11 +18,11 @@ class Deliveryman extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, {
+    this.belongsTo(models.Recipient, {
       foreignKey: 'recipient_id',
       as: 'recipient',
     });
-    this.belongsTo(models.File, {
+    this.belongsTo(models.Deliveryman, {
       foreignKey: 'deliveryman_id',
       as: 'deliveryman',
     });

@@ -32,7 +32,7 @@ module.exports = {
         allowNull: false,
       },
       postal_code: {
-        type: Sequelize.CHAR(2),
+        type: Sequelize.CHAR(8),
         allowNull: false,
       },
       created_at: {
