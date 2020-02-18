@@ -14,6 +14,7 @@ import DeliveryProblemController from './app/controllers/DeliverymanProblemContr
 import ProblemAdminController from './app/controllers/ProblemAdminController';
 
 import authMiddleware from './app/middlewares/auth';
+import RecipientController from './app/controllers/RecipientController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -34,10 +35,10 @@ routes.post('/delivery/:delivery_id/problems', DeliveryProblemController.store);
 routes.use(authMiddleware);
 
 routes.post('/users', UserController.store);
-routes.put('/users/:id', UserController.update);
+// routes.put('/users/:id', UserController.update);
 
 routes.post('/recipient', RecipientsController.store);
-routes.put('/recipient/:id', RecipientsController.update);
+routes.put('/recipients/:id', RecipientController.update);
 
 routes.post('/deliveryman', DeliverymanController.store);
 routes.get('/deliveryman', DeliverymanController.index);

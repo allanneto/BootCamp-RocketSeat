@@ -1,6 +1,9 @@
 import * as Yup from 'yup';
 import { isAfter, parseISO, getHours } from 'date-fns';
 
+import Queue from '../../lib/Queue';
+import NewDeliveryMail from '../jobs/newDeliveryMail';
+
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import DeliveryMan from '../models/Deliveryman';
@@ -115,7 +118,7 @@ class DeliveryController {
       ],
     });
 
-    // await Queue.add(NewDeliveryMail.key, { delivery });
+    await Queue.add(NewDeliveryMail.key, { delivery });
 
     return res.json(delivery);
   }
