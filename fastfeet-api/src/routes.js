@@ -25,17 +25,20 @@ routes.post('/sessions', SessionController.store);
 // ROTAS TESTADAS E OK
 routes.get('/deliveryman/:id/deliveries', DeliverymanActionController.index);
 
+// ROTAS TESTADAS E OK
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/withdraw',
   WithdrawController.update
 );
 
+// ROTAS TESTADAS E OK
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/deliver',
   upload.single('file'),
   DeliveredController.update
 );
 
+// ROTAS TESTADAS E OK
 routes.get('/delivery/:delivery_id/problems', DeliveryProblemController.index);
 routes.post('/delivery/:delivery_id/problems', DeliveryProblemController.store);
 
@@ -64,7 +67,8 @@ routes.get('/delivery/:id', DeliveryController.show);
 routes.put('/delivery/:id', DeliveryController.update);
 routes.delete('/delivery/:id', DeliveryController.delete);
 
-routes.get('/problems', ProblemAdminController.index);
+// ROTAS TESTADAS E OK
+routes.get('/problem', ProblemAdminController.index);
 routes.patch(
   '/problem/:problem_id/cancel-delivery',
   ProblemAdminController.update

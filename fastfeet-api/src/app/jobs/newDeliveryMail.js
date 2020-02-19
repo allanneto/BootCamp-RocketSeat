@@ -14,8 +14,15 @@ class NewDeliveryMail {
       template: 'newDelivery',
       context: {
         deliveryman: delivery.deliveryman.name,
-        recipient: delivery.recipient.name,
+
         product: delivery.product,
+
+        recipient: delivery.recipient.name,
+        street: delivery.recipient.street,
+        compliment: delivery.recipient.compliment,
+        state: delivery.recipient.state,
+        city: delivery.recipient.city,
+        postal_code: delivery.recipient.postal_code,
       },
     });
   }
