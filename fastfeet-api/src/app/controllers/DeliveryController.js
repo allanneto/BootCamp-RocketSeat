@@ -58,7 +58,7 @@ class DeliveryController {
       deliveryman_id: Yup.number()
         .integer()
         .required(),
-      signature_id: Yup.number().integer(),
+      // signature_id: Yup.number().integer(),
       product: Yup.string().required(),
     });
 
@@ -66,7 +66,7 @@ class DeliveryController {
       return res.status(400).json({ error: 'Validation error' });
     }
 
-    const { deliveryman_id, recipient_id } = req.body;
+    const { recipient_id, deliveryman_id } = req.body;
 
     const deliverymanExists = await DeliveryMan.findByPk(deliveryman_id);
 

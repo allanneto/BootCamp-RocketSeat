@@ -3,7 +3,7 @@ import multer from 'multer';
 import multerConfig from './config/multer';
 
 import SessionController from './app/controllers/SessionController';
-import DeliveryActionController from './app/controllers/DeliverymanActionController';
+import DeliverymanActionController from './app/controllers/DeliverymanActionController';
 import DeliveredController from './app/controllers/DeliveredController';
 import UserController from './app/controllers/UserController';
 import RecipientController from './app/controllers/RecipientController';
@@ -12,6 +12,7 @@ import FileController from './app/controllers/FileController';
 import DeliveryController from './app/controllers/DeliveryController';
 import DeliveryProblemController from './app/controllers/DeliverymanProblemController';
 import ProblemAdminController from './app/controllers/ProblemAdminController';
+import WithdrawController from './app/controllers/WithdrawController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -22,7 +23,12 @@ const upload = multer(multerConfig);
 routes.post('/sessions', SessionController.store);
 
 // ROTAS TESTADAS E OK
-routes.get('/deliveryman/:id/deliveries', DeliveryActionController.index);
+routes.get('/deliveryman/:id/deliveries', DeliverymanActionController.index);
+
+routes.patch(
+  '/deliveryman/:id/deliveries/:delivery_id/withdraw',
+  WithdrawController.update
+);
 
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/deliver',

@@ -1,6 +1,4 @@
-// Controller responsável por encomendas entregues
-
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 
 import Deliveryman from '../models/Deliveryman';
 import Delivery from '../models/Delivery';
@@ -9,15 +7,15 @@ import File from '../models/File';
 
 class DeliveredController {
   async update(req, res) {
-    const schema = Yup.object().shape({
-      end_date: Yup.date().required(),
-    });
+    // const schema = Yup.object().shape({
+    //   end_date: Yup.date().required(),
+    // });
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation error' });
-    }
+    // if (!(await schema.isValid(req.body))) {
+    //   return res.status(400).json({ error: 'Validation error' });
+    // }
 
-    const { end_date } = req.body;
+    // const { end_date } = req.body;
     const { id, delivery_id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(id);
@@ -53,7 +51,7 @@ class DeliveredController {
     const { originalname: name, filename: path } = req.file;
     const file = await File.create({ name, path });
 
-    await delivery.update({ end_date, signature_id: file.id });
+    await delivery.update({ end_date: new Date(), signature_id: file.id });
 
     await delivery.reload({
       attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],
