@@ -14,13 +14,17 @@ import DeliveryProblemController from './app/controllers/DeliverymanProblemContr
 import ProblemAdminController from './app/controllers/ProblemAdminController';
 import WithdrawController from './app/controllers/WithdrawController';
 
+/* VALIDATORS */
+
+import validateSessionStore from './app/validators/Session';
+
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
 
 // ROTAS TESTADAS E OK
-routes.post('/sessions', SessionController.store);
+routes.post('/sessions', validateSessionStore.store, SessionController.store);
 
 // ROTAS TESTADAS E OK
 routes.get('/deliveryman/:id/deliveries', DeliverymanActionController.index);

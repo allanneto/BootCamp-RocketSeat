@@ -174,7 +174,7 @@ class DeliveryController {
       product: Yup.string(),
       deliveryman_id: Yup.number().integer(),
       recipient_id: Yup.number().integer(),
-      signature_id: Yup.number().integer(),
+      // signature_id: Yup.number().integer(),
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation error' });
@@ -187,7 +187,7 @@ class DeliveryController {
       return res.status(400).json({ error: 'Delivery not found' });
     }
 
-    const { deliveryman_id, recipient_id, signature_id } = req.body;
+    const { deliveryman_id, recipient_id } = req.body;
 
     if (deliveryman_id) {
       const deliveryman = await DeliveryMan.findByPk(deliveryman_id);
@@ -203,12 +203,12 @@ class DeliveryController {
       }
     }
 
-    if (signature_id) {
-      const signature = await File.findByPk(signature_id);
-      if (!signature) {
-        return res.status(400).json({ error: 'Signature not found' });
-      }
-    }
+    // if (signature_id) {
+    //   const signature = await File.findByPk(signature_id);
+    //   if (!signature) {
+    //     return res.status(400).json({ error: 'Signature not found' });
+    //   }
+    // }
 
     const { start_date, end_date, canceled_at } = req.body;
     if (canceled_at) {
