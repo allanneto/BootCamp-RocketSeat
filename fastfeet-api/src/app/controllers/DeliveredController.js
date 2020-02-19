@@ -1,5 +1,3 @@
-// import * as Yup from 'yup';
-
 import Deliveryman from '../models/Deliveryman';
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
@@ -7,15 +5,6 @@ import File from '../models/File';
 
 class DeliveredController {
   async update(req, res) {
-    // const schema = Yup.object().shape({
-    //   end_date: Yup.date().required(),
-    // });
-
-    // if (!(await schema.isValid(req.body))) {
-    //   return res.status(400).json({ error: 'Validation error' });
-    // }
-
-    // const { end_date } = req.body;
     const { id, delivery_id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(id);

@@ -1,7 +1,5 @@
-import * as Yup from 'yup';
-
-import { startOfDay, endOfDay, parseISO, getHours } from 'date-fns';
-import { Op } from 'sequelize';
+// import { startOfDay, endOfDay, parseISO, getHours } from 'date-fns';
+// import { Op } from 'sequelize';
 
 import Deliveryman from '../models/Deliveryman';
 import Delivery from '../models/Delivery';
@@ -10,14 +8,6 @@ import File from '../models/File';
 
 class WithdrawController {
   async update(req, res) {
-    const schema = Yup.object().shape({
-      start_date: Yup.date().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation error' });
-    }
-
     const { start_date } = req.body;
     const { id, delivery_id } = req.params;
 

@@ -2,6 +2,10 @@ import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
+/**
+ * CONTROLLERS
+ */
+
 import SessionController from './app/controllers/SessionController';
 import DeliverymanActionController from './app/controllers/DeliverymanActionController';
 import DeliveredController from './app/controllers/DeliveredController';
@@ -14,71 +18,87 @@ import DeliveryProblemController from './app/controllers/DeliverymanProblemContr
 import ProblemAdminController from './app/controllers/ProblemAdminController';
 import WithdrawController from './app/controllers/WithdrawController';
 
-/* VALIDATORS */
+/**
+ * VALIDATORS
+ */
 
-import validateSessionStore from './app/validators/Session';
+import validateSession from './app/validators/Session';
+import validateDelivery from './app/validators/Delivery';
+import validateDeliveryman from './app/validators/Deliveryman';
+import validateDeliveryProblem from './app/validators/DeliveryProblem';
+import validateRecipient from './app/validators/Recipient';
+import validateUser from './app/validators/User';
+import validateWithdraw from './app/validators/Withdraw';
 
+/**
+ * MIDDLEWARE
+ */
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
 
-// ROTAS TESTADAS E OK
-routes.post('/sessions', validateSessionStore.store, SessionController.store);
+routes.post('/sessions', validateSession.store, SessionController.store);
 
-// ROTAS TESTADAS E OK
 routes.get('/deliveryman/:id/deliveries', DeliverymanActionController.index);
 
-// ROTAS TESTADAS E OK
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/withdraw',
+  validateWithdraw.update,
   WithdrawController.update
 );
 
-// ROTAS TESTADAS E OK
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/deliver',
   upload.single('file'),
   DeliveredController.update
 );
 
-// ROTAS TESTADAS E OK
 routes.get('/delivery/:delivery_id/problems', DeliveryProblemController.index);
-routes.post('/delivery/:delivery_id/problems', DeliveryProblemController.store);
+routes.post(
+  '/delivery/:delivery_id/problems',
+  validateDeliveryProblem.store,
+  DeliveryProblemController.store
+);
 
-// ROTAS TESTADAS E OK
 routes.use(authMiddleware);
 
-// ROTAS TESTADAS E OK
-routes.post('/users', UserController.store);
+routes.post('/users', validateUser.store, UserController.store);
 // routes.put('/users/:id', UserController.update);
 
-// ROTAS TESTADAS E OK
-routes.post('/recipient', RecipientController.store);
-routes.put('/recipient/:id', RecipientController.update);
+routes.post('/recipient', validateRecipient.store, RecipientController.store);
+routes.put(
+  '/recipient/:id',
+  validateRecipient.store,
+  RecipientController.update
+);
 
-// ROTAS TESTADAS E OK
-routes.post('/deliveryman', DeliverymanController.store);
+routes.post(
+  '/deliveryman',
+  validateDeliveryman.store,
+  DeliverymanController.store
+);
 routes.get('/deliveryman', DeliverymanController.index);
 routes.get('/deliveryman/:id', DeliverymanController.show);
-routes.put('/deliveryman/:id', DeliverymanController.update);
+routes.put(
+  '/deliveryman/:id',
+  validateDeliveryman.update,
+  DeliverymanController.update
+);
 routes.delete('/deliveryman/:id', DeliverymanController.delete);
 
-// ROTAS TESTADAS E OK
-routes.post('/delivery', DeliveryController.store);
+routes.post('/delivery', validateDelivery.store, DeliveryController.store);
 routes.get('/delivery', DeliveryController.index);
 routes.get('/delivery/:id', DeliveryController.show);
-routes.put('/delivery/:id', DeliveryController.update);
+routes.put('/delivery/:id', validateDelivery.update, DeliveryController.update);
 routes.delete('/delivery/:id', DeliveryController.delete);
 
-// ROTAS TESTADAS E OK
 routes.get('/problem', ProblemAdminController.index);
 routes.patch(
   '/problem/:problem_id/cancel-delivery',
   ProblemAdminController.update
 );
 
-// ROTAS TESTADAS E OK
 routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;

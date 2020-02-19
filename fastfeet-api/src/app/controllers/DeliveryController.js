@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { isAfter, parseISO, getHours } from 'date-fns';
 
 import Queue from '../../lib/Queue';
@@ -51,21 +50,6 @@ class DeliveryController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      recipient_id: Yup.number()
-        .integer()
-        .required(),
-      deliveryman_id: Yup.number()
-        .integer()
-        .required(),
-      // signature_id: Yup.number().integer(),
-      product: Yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation error' });
-    }
-
     const { recipient_id, deliveryman_id } = req.body;
 
     const deliverymanExists = await DeliveryMan.findByPk(deliveryman_id);
@@ -170,16 +154,6 @@ class DeliveryController {
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      product: Yup.string(),
-      deliveryman_id: Yup.number().integer(),
-      recipient_id: Yup.number().integer(),
-      // signature_id: Yup.number().integer(),
-    });
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation error' });
-    }
-
     const { id } = req.params;
 
     const delivery = await Delivery.findByPk(id);
