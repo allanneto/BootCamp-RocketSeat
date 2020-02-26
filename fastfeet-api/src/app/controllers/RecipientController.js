@@ -1,25 +1,44 @@
+import { Op } from 'sequelize';
+
 import Recipient from '../models/Recipient';
 
 class RecipientsController {
-  // async index(req, res) {
-  //   const { page = 1 } = req.query;
+  async index(req, res) {
+    const { q: recipientName, page = 1 } = req.query;
 
-  //   const recipients = await Recipient.findAll({
-  //     attributes: [
-  //       'name',
-  //       'street',
-  //       'number',
-  //       'complement',
-  //       'state',
-  //       'city',
-  //       'postal_code',
-  //     ],
-  //     limit: 20,
-  //     offset: (page - 1) * 20,
-  //   });
+    const recipients = recipientName
+      ? await Recipient.findAll({
+          where: {
+            name: {
+              [Op.like]: `${recipientName}%`,
+            },
+          },
+          attributes: [
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'postal_code',
+          ],
+        })
+      : await Recipient.findAll({
+          attributes: [
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'postal_code',
+          ],
+          limit: 20,
+          offset: (page - 1) * 20,
+        });
 
-  //   return res.json(recipients);
-  // }
+    return res.json(recipients);
+  }
 
   async store(req, res) {
     const recipient = await Recipient.create(req.body);
@@ -46,6 +65,29 @@ class RecipientsController {
   //   const recipients = await Recipient.destroy({ where: { id } });
 
   //   return res.json({ recipients });
+  // }
+
+  // async show(req, res) {
+  //   const { id } = req.params;
+
+  //   const recipient = await Recipient.findByPk(id, {
+  //     attributes: [
+  //       'id',
+  //       'name',
+  //       'street',
+  //       'number',
+  //       'complement',
+  //       'state',
+  //       'city',
+  //       'zip_code',
+  //     ],
+  //   });
+
+  //   if (!recipient) {
+  //     return res.status(400).json({ error: 'Recipient does not exists' });
+  //   }
+
+  //   return res.json(recipient);
   // }
 }
 
