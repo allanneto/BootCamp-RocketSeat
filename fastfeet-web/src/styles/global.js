@@ -32,4 +32,9 @@ export default createGlobalStyle`
 	button {
 		cursor: pointer;
 	}
+
+	.Toastify__toast {
+		margin-top: 70px;
+		border-radius: 4px;
+	}
 `;

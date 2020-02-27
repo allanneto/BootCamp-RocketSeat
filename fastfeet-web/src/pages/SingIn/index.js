@@ -28,9 +28,9 @@ export default function SingIn() {
 			<img src={logo} alt="FastFeet" />
 
 			<Form schema={schema} onSubmit={handleSubmit}>
-				<label>SEU E-MAIL</label>
+				<strong>SEU E-MAIL</strong>
 				<Input name="email" type="email" placeholder="exemplo@email.com" />
-				<label>SUA SENHA</label>
+				<strong>SUA SENHA</strong>
 				<Input name="password" type="password" placeholder="*************" />
 
 				<SimpleButton type="submit">

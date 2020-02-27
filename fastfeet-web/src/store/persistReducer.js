@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 export default reducers => {
 	const persistedReducer = persistReducer(
 		{
-			key: 'gobarber',
+			key: 'fastfeet',
 			storage,
 			whitelist: ['auth', 'user'],
 		},

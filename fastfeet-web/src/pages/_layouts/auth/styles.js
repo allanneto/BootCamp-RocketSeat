@@ -32,7 +32,7 @@ export const Content = styled.div`
 		flex-direction: column;
 		margin-top: 30px;
 
-		label {
+		strong {
 			align-self: flex-start;
 			margin: 0 0 10px;
 			font-weight: bold;
