@@ -17,7 +17,8 @@ export default createGlobalStyle`
 		height: 100%;
 	}
 	body {
-		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased;
 	}
 	body, input, button {
 		font: 14px 'Roboto', sans-serif;
