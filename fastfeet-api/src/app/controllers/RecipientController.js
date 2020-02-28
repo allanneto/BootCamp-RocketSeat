@@ -14,10 +14,11 @@ class RecipientsController {
             },
           },
           attributes: [
+            'id',
             'name',
             'street',
             'number',
-            'complement',
+            'compliment',
             'state',
             'city',
             'postal_code',
@@ -25,10 +26,11 @@ class RecipientsController {
         })
       : await Recipient.findAll({
           attributes: [
+            'id',
             'name',
             'street',
             'number',
-            'complement',
+            'compliment',
             'state',
             'city',
             'postal_code',
@@ -76,7 +78,7 @@ class RecipientsController {
   //       'name',
   //       'street',
   //       'number',
-  //       'complement',
+  //       'compliment',
   //       'state',
   //       'city',
   //       'zip_code',

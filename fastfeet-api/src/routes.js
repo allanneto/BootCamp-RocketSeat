@@ -72,6 +72,7 @@ routes.put(
   validateRecipient.store,
   RecipientController.update
 );
+routes.get('/recipient', RecipientController.index);
 
 routes.post(
   '/deliveryman',
