@@ -100,6 +100,7 @@ export default function DeliveryForm({ match }) {
 					deliveryman_id: data.deliveryman_id,
 				});
 				toast.success('Encomenda criada com sucesso!');
+				history.push('/delivery');
 			}
 
 			reset();
