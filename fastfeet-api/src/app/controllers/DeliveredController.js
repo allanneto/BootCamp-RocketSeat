@@ -40,7 +40,11 @@ class DeliveredController {
     const { originalname: name, filename: path } = req.file;
     const file = await File.create({ name, path });
 
-    await delivery.update({ end_date: new Date(), signature_id: file.id });
+    await delivery.update({
+      end_date: new Date(),
+      signature_id: file.id,
+      status: 'ENTREGUE',
+    });
 
     await delivery.reload({
       attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],

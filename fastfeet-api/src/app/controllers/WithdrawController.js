@@ -57,7 +57,7 @@ class WithdrawController {
         .json({ error: 'A deliveryman can make only 5 withdraws a day' });
     }
 
-    await delivery.update({ start_date });
+    await delivery.update({ start_date, status: 'RETIRADA' });
 
     await delivery.reload({
       attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],

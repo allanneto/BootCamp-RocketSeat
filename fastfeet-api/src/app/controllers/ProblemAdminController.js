@@ -79,7 +79,7 @@ class ProblemsAdminController {
       return res.status(400).json({ error: 'Delivery alredy canceled' });
     }
 
-    await delivery.update({ canceled_at: new Date() });
+    await delivery.update({ canceled_at: new Date(), status: 'CANCELADA' });
     await delivery.reload({
       attributes: ['id', 'product', 'start_date', 'end_date'],
       include: [

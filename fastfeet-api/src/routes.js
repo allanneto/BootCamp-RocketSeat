@@ -14,7 +14,7 @@ import RecipientController from './app/controllers/RecipientController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import FileController from './app/controllers/FileController';
 import DeliveryController from './app/controllers/DeliveryController';
-import DeliveryProblemController from './app/controllers/DeliverymanProblemController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import ProblemAdminController from './app/controllers/ProblemAdminController';
 import WithdrawController from './app/controllers/WithdrawController';
 

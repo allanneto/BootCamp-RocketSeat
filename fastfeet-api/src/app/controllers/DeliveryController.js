@@ -111,7 +111,7 @@ class DeliveryController {
   }
 
   async store(req, res) {
-    const { recipient_id, deliveryman_id } = req.body;
+    const { product, recipient_id, deliveryman_id } = req.body;
 
     const deliverymanExists = await DeliveryMan.findByPk(deliveryman_id);
 
@@ -125,47 +125,35 @@ class DeliveryController {
       return res.status(400).json({ error: 'Recipient not found' });
     }
 
-    const delivery = await Delivery.create(req.body);
-
-    await delivery.reload({
-      attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],
-      include: [
-        {
-          model: DeliveryMan,
-          as: 'deliveryman',
-          attributes: ['name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: Recipient,
-          as: 'recipient',
-          attributes: [
-            'name',
-            'street',
-            'number',
-            'compliment',
-            'state',
-            'city',
-            'postal_code',
-          ],
-        },
-        {
-          model: File,
-          as: 'signature',
-          attributes: ['url', 'name', 'path'],
-        },
-      ],
+    const {
+      id,
+      signature_id,
+      start_date,
+      end_date,
+      canceled_at,
+    } = await Delivery.create({
+      product,
+      recipient_id,
+      deliveryman_id,
+      status: 'PENDENTE',
     });
 
-    await Queue.add(NewDeliveryMail.key, { delivery });
+    await Queue.add(NewDeliveryMail.key, {
+      deliverymanExists,
+      recipient: recipientExists,
+      product,
+    });
 
-    return res.json(delivery);
+    return res.json({
+      id,
+      product,
+      recipient_id,
+      deliveryman_id,
+      signature_id,
+      start_date,
+      end_date,
+      canceled_at,
+    });
   }
 
   async show(req, res) {

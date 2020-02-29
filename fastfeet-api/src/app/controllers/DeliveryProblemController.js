@@ -80,51 +80,40 @@ class DeliveryProblemController {
       description,
     });
 
-    await problem.reload({
-      attributes: ['id', 'description'],
-      include: [
-        {
-          model: Delivery,
-          as: 'delivery',
-          attributes: ['product', 'start_date', 'end_date', 'canceled_at'],
-          include: [
-            {
-              model: Recipient,
-              as: 'recipient',
-              attributes: [
-                'name',
-                'street',
-                'number',
-                'postal_code',
-                'compliment',
-                'state',
-                'city',
-              ],
-            },
-            {
-              model: Deliveryman,
-              as: 'deliveryman',
-              attributes: ['name', 'email'],
-              include: [
-                {
-                  model: File,
-                  as: 'avatar',
-                  attributes: ['name', 'path', 'url'],
-                },
-              ],
-            },
-            {
-              model: File,
-              as: 'signature',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
-        },
-      ],
-    });
-
     return res.status(201).json(problem);
   }
+
+  // async delete(req, res) {
+  //   const { id } = req.params;
+
+  //   const { delivery_id, description } = await DeliveryProblem.findById(id);
+
+  //   const delivery = await Delivery.findByPk(delivery_id, {
+  //     include: [
+  //       {
+  //         model: Deliveryman,
+  //         as: 'deliveryman',
+  //         attributes: ['id', 'name', 'email'],
+  //       },
+  //       {
+  //         model: Recipient,
+  //         as: 'recipient',
+  //       },
+  //     ],
+  //   });
+
+  //   await delivery.update({ canceled_at: new Date(), status: 'CANCELADA' });
+  //   await DeliveryProblem.findByIdAndDelete(id);
+
+  //   await Queue.add(CancelationDeliveryMail.key, {
+  //     deliveryman: delivery.deliveryman,
+  //     description,
+  //     recipient: delivery.recipient,
+  //     product: delivery.product,
+  //   });
+
+  //   return res.json({});
+  // }
 }
 
 export default new DeliveryProblemController();
