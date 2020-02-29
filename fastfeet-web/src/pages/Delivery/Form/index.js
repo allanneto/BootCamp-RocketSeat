@@ -19,7 +19,7 @@ export default function DeliveryForm({ match }) {
 	useEffect(() => {
 		async function loadInitialData(deliveryId) {
 			if (id) {
-				const response = await api.get(`/deliveries/${deliveryId}`);
+				const response = await api.get(`/delivery/${deliveryId}`);
 
 				formRef.current.setData(response.data);
 				formRef.current.setFieldValue('recipient_id', {
@@ -43,7 +43,7 @@ export default function DeliveryForm({ match }) {
 	};
 
 	async function loadRecipientOptions(inputValue, callback) {
-		const response = await api.get('/recipients', {
+		const response = await api.get('/recipient', {
 			params: {
 				q: inputValue,
 			},
@@ -57,16 +57,16 @@ export default function DeliveryForm({ match }) {
 		callback(data);
 	}
 
-	async function loadDeliverymenOptrios(inputValue, callback) {
-		const response = await api.get('/deliverymen', {
+	async function loadDeliverymenOptions(inputValue, callback) {
+		const response = await api.get('/deliveryman', {
 			params: {
 				q: inputValue,
 			},
 		});
 
-		const data = response.data.map(deliveryman => ({
-			value: deliveryman.id,
-			label: deliveryman.name,
+		const data = response.data.map(deliverymen => ({
+			value: deliverymen.id,
+			label: deliverymen.name,
 		}));
 
 		callback(data);
@@ -86,15 +86,15 @@ export default function DeliveryForm({ match }) {
 			});
 
 			if (id) {
-				await api.put(`/deliveries/${id}`, {
+				await api.put(`/delivery/${id}`, {
 					product: data.product,
 					recipient_id: data.recipient_id,
 					deliveryman_id: data.deliveryman_id,
 				});
-				history.push('/deliveries');
+				history.push('/delivery');
 				toast.success('Encomenda editada com sucesso!');
 			} else {
-				await api.post('/deliveries', {
+				await api.post('/delivery', {
 					product: data.product,
 					recipient_id: data.recipient_id,
 					deliveryman_id: data.deliveryman_id,
@@ -141,7 +141,7 @@ export default function DeliveryForm({ match }) {
 							name="deliveryman_id"
 							placeholder="Entregadores"
 							noOptionsMessage={() => 'Nenhum entregador encontrado'}
-							loadOptions={loadDeliverymenOptrios}
+							loadOptions={loadDeliverymenOptions}
 							styles={customStylesSelectInput}
 						/>
 					</section>

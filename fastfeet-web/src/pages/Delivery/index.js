@@ -30,7 +30,7 @@ export default function Delivery() {
 
 	async function handleSearchDelivery(e) {
 		setPage(1);
-		const response = await api.get('/recipient', {
+		const response = await api.get('/delivery', {
 			params: {
 				q: e.target.value,
 				page,
@@ -43,7 +43,7 @@ export default function Delivery() {
 	}
 
 	async function loadDeliveries() {
-		const response = await api.get('/recipient', {
+		const response = await api.get('/delivery', {
 			params: {
 				page,
 			},
@@ -70,7 +70,7 @@ export default function Delivery() {
 					<IconButton
 						Icon={MdAdd}
 						title="CADASTRAR"
-						action={() => history.push('/deliveries/form')}
+						action={() => history.push('/delivery/form')}
 						type="button"
 					/>
 				</HeaderList>

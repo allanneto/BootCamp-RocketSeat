@@ -23,7 +23,7 @@ export default function DeliveryItem({ data, updateDeliveries }) {
 		}
 
 		try {
-			await api.delete(`/deliveries/${data.id}`);
+			await api.delete(`/delivery/${data.id}`);
 			updateDeliveries();
 			toast.success('Encomenda apagada com sucesso!');
 		} catch (err) {
@@ -34,24 +34,25 @@ export default function DeliveryItem({ data, updateDeliveries }) {
 	return (
 		<Container>
 			<small>#{data.id}</small>
-			<small>{data.name}</small>
+			<small>{data.recipient.name}</small>
 			<small>{data.product}</small>
-			<small>{data.city}</small>
-			<small>{data.state}</small>
+			<small>{data.recipient.city}</small>
+			<small>{data.recipient.state}</small>
 			<Status
 				text={data.status}
-				// color={statusColors[data.status].color}
-				// background={statusColors[data.status].background}
+				color={statusColors[data.status].color}
+				background={statusColors[data.status].background}
 			/>
 			<More>
 				<MoreContainer>
 					{/* vizualizar */}
+
 					<div>
 						<DeliveryModal data={data} />
 					</div>
 					<div>
 						<button
-							onClick={() => history.push(`/deliveries/form/${data.id}`)}
+							onClick={() => history.push(`/delivery/form/${data.id}`)}
 							type="button"
 						>
 							<MdEdit color={colors.info} size={15} />
@@ -79,5 +80,10 @@ DeliveryItem.propTypes = {
 		city: PropTypes.string,
 		state: PropTypes.string,
 		status: PropTypes.string,
+		recipient: PropTypes.shape({
+			name: PropTypes.string,
+			city: PropTypes.string,
+			state: PropTypes.string,
+		}).isRequired,
 	}).isRequired,
 };

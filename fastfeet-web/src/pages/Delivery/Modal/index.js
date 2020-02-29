@@ -13,12 +13,12 @@ export default function DeliveryModal({ data }) {
 				<div>
 					<strong>Informações da encomenda</strong>
 					<small>
-						{data.street}, {data.number}
+						{data.recipient.street}, {data.recipient.number}
 					</small>
 					<small>
-						{data.city} - {data.state}
+						{data.recipient.city} - {data.recipient.state}
 					</small>
-					<small>{data.postal_code}</small>
+					<small>{data.recipient.postal_code}</small>
 				</div>
 				{data.start_dateFormated ? (
 					<div>
@@ -50,12 +50,14 @@ DeliveryModal.propTypes = {
 	data: PropTypes.shape({
 		start_dateFormated: PropTypes.string,
 		end_dateFormated: PropTypes.string,
-		name: PropTypes.string,
-		street: PropTypes.string,
-		number: PropTypes.number,
-		city: PropTypes.string,
-		state: PropTypes.string,
-		postal_code: PropTypes.string,
+		recipient: PropTypes.shape({
+			name: PropTypes.string,
+			street: PropTypes.string,
+			number: PropTypes.number,
+			city: PropTypes.string,
+			state: PropTypes.string,
+			postal_code: PropTypes.string,
+		}),
 		status: PropTypes.string,
 		signature: PropTypes.shape({
 			url: PropTypes.string,
