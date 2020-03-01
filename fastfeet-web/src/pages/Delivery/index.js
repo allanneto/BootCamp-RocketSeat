@@ -53,10 +53,10 @@ export default function Delivery() {
 
 		setDeliveries(data);
 	}
-
 	useEffect(() => {
 		loadDeliveries();
-	}, [page]); // eslint-disable-next-line
+		// eslint-disable-next-line
+	}, [page]);
 
 	return (
 		<Container>

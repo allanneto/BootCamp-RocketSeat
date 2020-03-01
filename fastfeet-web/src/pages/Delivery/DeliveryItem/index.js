@@ -11,7 +11,7 @@ import { statusColors, colors } from '~/styles/colors';
 
 import DeliveryModal from '../Modal';
 import Status from './DeliveryStatus';
-import { Container, MoreContainer } from './styles';
+import { Container, Content } from './styles';
 
 export default function DeliveryItem({ data, updateDeliveries }) {
 	async function handleDelete() {
@@ -44,9 +44,7 @@ export default function DeliveryItem({ data, updateDeliveries }) {
 				background={statusColors[data.status].background}
 			/>
 			<More>
-				<MoreContainer>
-					{/* vizualizar */}
-
+				<Content>
 					<div>
 						<DeliveryModal data={data} />
 					</div>
@@ -65,7 +63,7 @@ export default function DeliveryItem({ data, updateDeliveries }) {
 							<span>Excluir</span>
 						</button>
 					</div>
-				</MoreContainer>
+				</Content>
 			</More>
 		</Container>
 	);

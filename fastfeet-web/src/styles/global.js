@@ -34,7 +34,7 @@ export default createGlobalStyle`
 	}
 
 	.Toastify__toast {
-		margin-top: 70px;
+		margin-top: 60px;
 		border-radius: 4px;
 	}
 `;
