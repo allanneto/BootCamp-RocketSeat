@@ -73,6 +73,8 @@ routes.put(
   RecipientController.update
 );
 routes.get('/recipient', RecipientController.index);
+routes.get('/recipient/:id', RecipientController.show);
+routes.delete('/recipient/:id', RecipientController.delete);
 
 routes.post(
   '/deliveryman',

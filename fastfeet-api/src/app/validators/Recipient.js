@@ -9,15 +9,13 @@ class RecipientsValidator {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       street: Yup.string().required(),
-      number: Yup.number().notRequired(),
+      number: Yup.number().required(),
       compliment: Yup.string().notRequired(),
       state: Yup.string()
-        .required()
+        .required('O estado é obrigatório, dois caracteres')
         .max(2),
       city: Yup.string().required(),
-      postal_code: Yup.string()
-        .length(8)
-        .required(),
+      postal_code: Yup.string().required(),
     });
 
     await validate(res, next, req.body, schema);

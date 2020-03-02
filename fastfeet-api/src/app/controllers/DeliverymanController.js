@@ -38,7 +38,7 @@ class DeliverymanController {
           ],
         });
 
-    return res.status(200).json({ deliverymans });
+    return res.status(200).json(deliverymans);
   }
 
   async store(req, res) {
@@ -75,31 +75,45 @@ class DeliverymanController {
   }
 
   async update(req, res) {
-    const { email } = req.body;
-    const { id } = req.params;
-    if (email) {
-      const emailExists = await Deliveryman.findOne({ where: { email } });
+    const { name, email, avatar_id } = req.body;
 
-      if (emailExists && emailExists.id !== id) {
-        return res.status(400).json({ error: 'Email alredy registered' });
+    if (avatar_id) {
+      const avatarExists = await File.findByPk(avatar_id);
+
+      if (!avatarExists) {
+        return res.status(400).json({ error: 'File does not exists' });
       }
     }
+
+    const { id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(id);
 
     if (!deliveryman) {
-      return res.status(400).json({ error: 'User not found' });
+      return res.status(400).json({ error: 'Delivery man does not exists' });
     }
 
-    deliveryman.update(req.body);
-    const { id: newId, name, email: newEmail, avatar_id } = deliveryman;
+    if (email !== deliveryman.email) {
+      const deliverymanExists = await Deliveryman.findOne({ where: { email } });
 
-    return res.status(200).json({
-      id: newId,
-      name,
-      email: newEmail,
-      avatar_id,
+      if (deliverymanExists) {
+        return res.status(400).json({ error: 'User already exists.' });
+      }
+    }
+
+    await deliveryman.update({ name, email, avatar_id });
+
+    const { avatar } = await Deliveryman.findByPk(id, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
     });
+
+    return res.json({ id, name, email, avatar });
   }
 
   async delete(req, res) {

@@ -18,13 +18,14 @@ class DeliveryController {
       ? await Delivery.findAll({
           where: {
             product: {
-              [Op.like]: `${productName}%`,
+              [Op.like]: `%${productName}%`,
             },
           },
           order: ['id'],
           attributes: [
             'id',
             'product',
+            'status',
             'start_date',
             'canceled_at',
             'end_date',
@@ -34,24 +35,19 @@ class DeliveryController {
               model: DeliveryMan,
               as: 'deliveryman',
               attributes: ['name', 'email'],
-              include: [
-                {
-                  model: File,
-                  as: 'avatar',
-                  attributes: ['name', 'path', 'url'],
-                },
-              ],
             },
             {
               model: Recipient,
               as: 'recipient',
+              paranoid: false,
               attributes: [
+                'id',
                 'name',
                 'street',
                 'number',
                 'compliment',
-                'state',
                 'city',
+                'state',
                 'postal_code',
               ],
             },
@@ -66,6 +62,7 @@ class DeliveryController {
           attributes: [
             'id',
             'product',
+            'status',
             'start_date',
             'canceled_at',
             'end_date',
@@ -165,7 +162,7 @@ class DeliveryController {
         {
           model: DeliveryMan,
           as: 'deliveryman',
-          attributes: ['name', 'email'],
+          attributes: ['id', 'name'],
           include: [
             {
               model: File,
@@ -178,6 +175,7 @@ class DeliveryController {
           model: Recipient,
           as: 'recipient',
           attributes: [
+            'id',
             'name',
             'street',
             'number',
@@ -266,41 +264,41 @@ class DeliveryController {
 
     await delivery.update(req.body);
 
-    await delivery.reload({
-      attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],
-      include: [
-        {
-          model: DeliveryMan,
-          as: 'deliveryman',
-          attributes: ['name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: Recipient,
-          as: 'recipient',
-          attributes: [
-            'name',
-            'street',
-            'number',
-            'compliment',
-            'state',
-            'city',
-            'postal_code',
-          ],
-        },
-        {
-          model: File,
-          as: 'signature',
-          attributes: ['url', 'name', 'path'],
-        },
-      ],
-    });
+    // await delivery.reload({
+    //   attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],
+    //   include: [
+    //     {
+    //       model: DeliveryMan,
+    //       as: 'deliveryman',
+    //       attributes: ['name', 'email'],
+    //       include: [
+    //         {
+    //           model: File,
+    //           as: 'avatar',
+    //           attributes: ['name', 'path', 'url'],
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       model: Recipient,
+    //       as: 'recipient',
+    //       attributes: [
+    //         'name',
+    //         'street',
+    //         'number',
+    //         'compliment',
+    //         'state',
+    //         'city',
+    //         'postal_code',
+    //       ],
+    //     },
+    //     {
+    //       model: File,
+    //       as: 'signature',
+    //       attributes: ['url', 'name', 'path'],
+    //     },
+    //   ],
+    // });
 
     return res.json(delivery);
   }

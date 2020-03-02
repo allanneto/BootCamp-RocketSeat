@@ -59,41 +59,41 @@ class WithdrawController {
 
     await delivery.update({ start_date, status: 'RETIRADA' });
 
-    await delivery.reload({
-      attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],
-      include: [
-        {
-          model: Deliveryman,
-          as: 'deliveryman',
-          attributes: ['name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: Recipient,
-          as: 'recipient',
-          attributes: [
-            'name',
-            'street',
-            'number',
-            'compliment',
-            'state',
-            'city',
-            'postal_code',
-          ],
-        },
-        {
-          model: File,
-          as: 'signature',
-          attributes: ['url', 'name', 'path'],
-        },
-      ],
-    });
+    // await delivery.reload({
+    //   attributes: ['id', 'product', 'start_date', 'canceled_at', 'end_date'],
+    //   include: [
+    //     {
+    //       model: Deliveryman,
+    //       as: 'deliveryman',
+    //       attributes: ['name', 'email'],
+    //       include: [
+    //         {
+    //           model: File,
+    //           as: 'avatar',
+    //           attributes: ['name', 'path', 'url'],
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       model: Recipient,
+    //       as: 'recipient',
+    //       attributes: [
+    //         'name',
+    //         'street',
+    //         'number',
+    //         'compliment',
+    //         'state',
+    //         'city',
+    //         'postal_code',
+    //       ],
+    //     },
+    //     {
+    //       model: File,
+    //       as: 'signature',
+    //       attributes: ['url', 'name', 'path'],
+    //     },
+    //   ],
+    // });
 
     return res.status(200).json(delivery);
   }

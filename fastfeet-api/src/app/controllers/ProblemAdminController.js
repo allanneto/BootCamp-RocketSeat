@@ -1,65 +1,69 @@
-import { Op } from 'sequelize';
+// import { Op } from 'sequelize';
 
 import Queue from '../../lib/Queue';
 import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
 
 import Delivery from '../models/Delivery';
-import Deliveryman from '../models/Deliveryman';
+// import Deliveryman from '../models/Deliveryman';
 import DeliveryProblem from '../models/DeliveryProblem';
-import File from '../models/File';
-import Recipient from '../models/Recipient';
+// import File from '../models/File';
+// import Recipient from '../models/Recipient';
 
 class ProblemsAdminController {
   async index(req, res) {
+    const { page = 1 } = req.query;
     const problems = await DeliveryProblem.findAll({
-      attributes: ['delivery_id'],
+      limit: 5,
+      offset: (page - 1) * 5,
     });
 
-    const idsWithProblems = problems.map(p => p.delivery_id);
+    // const idsWithProblems = problems.map(p => p.delivery_id);
 
-    const deliveries = await Delivery.findAll({
-      where: {
-        id: {
-          [Op.in]: idsWithProblems,
-        },
-      },
-      attributes: ['id', 'product', 'start_date', 'end_date'],
-      include: [
-        {
-          model: Recipient,
-          as: 'recipient',
-          attributes: [
-            'id',
-            'name',
-            'street',
-            'number',
-            'postal_code',
-            'compliment',
-            'state',
-            'city',
-          ],
-        },
-        {
-          model: Deliveryman,
-          as: 'deliveryman',
-          attributes: ['id', 'name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: File,
-          as: 'signature',
-          attributes: ['name', 'path', 'url'],
-        },
-      ],
-    });
+    // const deliveries = await Delivery.findAll({
+    //   where: {
+    //     id: {
+    //       [Op.in]: idsWithProblems,
+    //     },
+    //   },
+    //   attributes: ['id', 'product', 'start_date', 'end_date'],
+    //   include: [
+    //     {
+    //       model: Recipient,
+    //       as: 'recipient',
+    //       attributes: [
+    //         'id',
+    //         'name',
+    //         'street',
+    //         'number',
+    //         'postal_code',
+    //         'compliment',
+    //         'state',
+    //         'city',
+    //       ],
+    //     },
+    //     {
+    //       model: Deliveryman,
+    //       as: 'deliveryman',
+    //       attributes: ['id', 'name', 'email'],
+    //       include: [
+    //         {
+    //           model: File,
+    //           as: 'avatar',
+    //           attributes: ['name', 'path', 'url'],
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       model: File,
+    //       as: 'signature',
+    //       attributes: ['name', 'path', 'url'],
+    //     },
+    //   ],
+    //   limit: 5,
+    //   offset: (page - 1) * 5,
+    // });
 
-    return res.status(200).json(deliveries);
+    return res.status(200).json(problems);
   }
 
   async update(req, res) {
@@ -80,42 +84,42 @@ class ProblemsAdminController {
     }
 
     await delivery.update({ canceled_at: new Date(), status: 'CANCELADA' });
-    await delivery.reload({
-      attributes: ['id', 'product', 'start_date', 'end_date'],
-      include: [
-        {
-          model: Recipient,
-          as: 'recipient',
-          attributes: [
-            'id',
-            'name',
-            'street',
-            'number',
-            'postal_code',
-            'compliment',
-            'state',
-            'city',
-          ],
-        },
-        {
-          model: Deliveryman,
-          as: 'deliveryman',
-          attributes: ['id', 'name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['name', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: File,
-          as: 'signature',
-          attributes: ['name', 'path', 'url'],
-        },
-      ],
-    });
+    // await delivery.reload({
+    //   attributes: ['id', 'product', 'start_date', 'end_date'],
+    //   include: [
+    //     {
+    //       model: Recipient,
+    //       as: 'recipient',
+    //       attributes: [
+    //         'id',
+    //         'name',
+    //         'street',
+    //         'number',
+    //         'postal_code',
+    //         'compliment',
+    //         'state',
+    //         'city',
+    //       ],
+    //     },
+    //     {
+    //       model: Deliveryman,
+    //       as: 'deliveryman',
+    //       attributes: ['id', 'name', 'email'],
+    //       include: [
+    //         {
+    //           model: File,
+    //           as: 'avatar',
+    //           attributes: ['name', 'path', 'url'],
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       model: File,
+    //       as: 'signature',
+    //       attributes: ['name', 'path', 'url'],
+    //     },
+    //   ],
+    // });
 
     await Queue.add(CancelDeliveryMail.key, { delivery });
 

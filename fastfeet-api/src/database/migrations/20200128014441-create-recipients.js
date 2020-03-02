@@ -1,11 +1,13 @@
+const Sequelize = require('sequelize');
+
 module.exports = {
-  up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('recipients', {
+  up: queryInterface => {
+    return queryInterface.createTable('recipients', {
       id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
@@ -16,15 +18,15 @@ module.exports = {
         allowNull: false,
       },
       number: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       compliment: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: Sequelize.TEXT,
+        allowNull: true,
       },
       state: {
-        type: Sequelize.CHAR(2),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       city: {
@@ -32,7 +34,7 @@ module.exports = {
         allowNull: false,
       },
       postal_code: {
-        type: Sequelize.CHAR(8),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {
@@ -43,7 +45,14 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-    }),
+      deleted_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+    });
+  },
 
-  down: queryInterface => queryInterface.dropTable('recipients'),
+  down: queryInterface => {
+    return queryInterface.dropTable('recipients');
+  },
 };

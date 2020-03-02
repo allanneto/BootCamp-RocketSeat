@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 
 import Recipient from '../models/Recipient';
+import Delivery from '../models/Delivery';
 
 class RecipientsController {
   async index(req, res) {
@@ -35,16 +36,44 @@ class RecipientsController {
             'city',
             'postal_code',
           ],
-          limit: 20,
-          offset: (page - 1) * 20,
+          limit: 5,
+          offset: (page - 1) * 5,
         });
 
     return res.json(recipients);
   }
 
   async store(req, res) {
-    const recipient = await Recipient.create(req.body);
-    return res.json(recipient);
+    const {
+      name,
+      street,
+      number,
+      compliment,
+      state,
+      city,
+      postal_code,
+    } = req.body;
+
+    const { id } = await Recipient.create({
+      name,
+      street,
+      number,
+      compliment,
+      state,
+      city,
+      postal_code,
+    });
+
+    return res.json({
+      id,
+      name,
+      street,
+      number,
+      compliment,
+      state,
+      city,
+      postal_code,
+    });
   }
 
   async update(req, res) {
@@ -61,36 +90,54 @@ class RecipientsController {
     return res.json(recipient);
   }
 
-  // async delete(req, res) {
-  //   const { id } = req.params;
+  async delete(req, res) {
+    const { id } = req.params;
 
-  //   const recipients = await Recipient.destroy({ where: { id } });
+    const recipient = await Recipient.findByPk(id);
 
-  //   return res.json({ recipients });
-  // }
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient does not exists' });
+    }
 
-  // async show(req, res) {
-  //   const { id } = req.params;
+    const deliveries = await Delivery.findOne({
+      where: {
+        recipient_id: recipient.id,
+        signature_id: null,
+      },
+    });
 
-  //   const recipient = await Recipient.findByPk(id, {
-  //     attributes: [
-  //       'id',
-  //       'name',
-  //       'street',
-  //       'number',
-  //       'compliment',
-  //       'state',
-  //       'city',
-  //       'zip_code',
-  //     ],
-  //   });
+    if (deliveries) {
+      return res
+        .status(400)
+        .json({ error: 'This Recipient still has an delivery to receive' });
+    }
 
-  //   if (!recipient) {
-  //     return res.status(400).json({ error: 'Recipient does not exists' });
-  //   }
+    await recipient.destroy();
+    return res.json({});
+  }
 
-  //   return res.json(recipient);
-  // }
+  async show(req, res) {
+    const { id } = req.params;
+
+    const recipient = await Recipient.findByPk(id, {
+      attributes: [
+        'id',
+        'name',
+        'street',
+        'number',
+        'compliment',
+        'state',
+        'city',
+        'postal_code',
+      ],
+    });
+
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient does not exists' });
+    }
+
+    return res.json(recipient);
+  }
 }
 
 export default new RecipientsController();
