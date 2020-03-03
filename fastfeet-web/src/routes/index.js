@@ -1,4 +1,5 @@
 import React from 'react';
+import Loadable from 'react-loadable';
 import { Switch } from 'react-router-dom';
 
 import Delivery from '~/pages/Delivery';
@@ -12,12 +13,32 @@ import SingIn from '~/pages/SingIn';
 
 import Route from './Route';
 
+const DeliveryComponent = Loadable({
+	loader: () => import('~/pages/Delivery'),
+	loading: Delivery,
+});
+
+const DeliveryManComponent = Loadable({
+	loader: () => import('~/pages/Deliveryman'),
+	loading: Deliveryman,
+});
+
+const RecipientComponent = Loadable({
+	loader: () => import('~/pages/Recipient'),
+	loading: Recipient,
+});
+
+const ProblemComponent = Loadable({
+	loader: () => import('~/pages/Problems'),
+	loading: Problems,
+});
+
 export default function Routes() {
 	return (
 		<Switch>
 			<Route path="/" exact component={SingIn} />
 
-			<Route path="/delivery" exact component={Delivery} isPrivate />
+			<Route path="/delivery" exact component={DeliveryComponent} isPrivate />
 			<Route path="/delivery/form" exact component={DeliveryForm} isPrivate />
 			<Route
 				path="/delivery/form/:id"
@@ -26,7 +47,12 @@ export default function Routes() {
 				isPrivate
 			/>
 
-			<Route path="/deliveryman" exact component={Deliveryman} isPrivate />
+			<Route
+				path="/deliveryman"
+				exact
+				component={DeliveryManComponent}
+				isPrivate
+			/>
 			<Route
 				path="/deliveryman/form"
 				exact
@@ -40,7 +66,7 @@ export default function Routes() {
 				isPrivate
 			/>
 
-			<Route path="/recipient" exact component={Recipient} isPrivate />
+			<Route path="/recipient" exact component={RecipientComponent} isPrivate />
 			<Route path="/recipient/form" exact component={RecipientForm} isPrivate />
 			<Route
 				path="/recipient/form/:id"
@@ -49,7 +75,7 @@ export default function Routes() {
 				isPrivate
 			/>
 
-			<Route path="/problem" exact component={Problems} isPrivate />
+			<Route path="/problem" exact component={ProblemComponent} isPrivate />
 		</Switch>
 	);
 }
