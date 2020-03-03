@@ -80,14 +80,14 @@ export default function Deliverymen() {
 						onClick={() => setPage(page - 1)}
 						type="button"
 					>
-						voltar
+						VOLTAR
 					</Button>
 					<Button
 						disabled={deliverymen.length < 5}
 						type="button"
 						onClick={() => setPage(page + 1)}
 					>
-						proximo
+						PRÓXIMO
 					</Button>
 				</section>
 			</Content>

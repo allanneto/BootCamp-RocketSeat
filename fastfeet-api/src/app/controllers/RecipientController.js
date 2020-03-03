@@ -11,7 +11,7 @@ class RecipientsController {
       ? await Recipient.findAll({
           where: {
             name: {
-              [Op.like]: `${recipientName}%`,
+              [Op.like]: `%${recipientName}%`,
             },
           },
           attributes: [

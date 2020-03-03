@@ -10,7 +10,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import DeliveryItem from './DeliveryItem';
-import { Container, Content, Grid } from './styles';
+import { Container, Content, Grid, Button } from './styles';
 
 export default function Delivery() {
 	const [deliveries, setDeliveries] = useState([]);
@@ -24,6 +24,9 @@ export default function Delivery() {
 				: null,
 			end_dateFormated: delivery.end_date
 				? format(parseISO(delivery.end_date), 'dd/MM/yyyy')
+				: null,
+			canceled_atFormated: delivery.canceled_at
+				? format(parseISO(delivery.canceled_at), 'dd/MM/yyyy')
 				: null,
 		}));
 	}
@@ -93,6 +96,22 @@ export default function Delivery() {
 						/>
 					))}
 				</Grid>
+				<section>
+					<Button
+						disabled={page === 1}
+						onClick={() => setPage(page - 1)}
+						type="button"
+					>
+						VOLTAR
+					</Button>
+					<Button
+						disabled={deliveries.length < 5}
+						type="button"
+						onClick={() => setPage(page + 1)}
+					>
+						PRÓXIMO
+					</Button>
+				</section>
 			</Content>
 		</Container>
 	);

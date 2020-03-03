@@ -33,6 +33,12 @@ export default function DeliveryModal({ data }) {
 								<small>{data.end_dateFormated}</small>
 							</div>
 						) : null}
+						{data.canceled_atFormated ? (
+							<div>
+								<span>Cancelada: </span>
+								<small>{data.canceled_atFormated}</small>
+							</div>
+						) : null}
 					</div>
 				) : null}
 				{data.signature ? (
@@ -50,6 +56,7 @@ DeliveryModal.propTypes = {
 	data: PropTypes.shape({
 		start_dateFormated: PropTypes.string,
 		end_dateFormated: PropTypes.string,
+		canceled_atFormated: PropTypes.string,
 		recipient: PropTypes.shape({
 			name: PropTypes.string,
 			street: PropTypes.string,

@@ -37,7 +37,7 @@ export const Container = styled.div`
 	}
 `;
 
-export const MoreConainer = styled.div`
+export const Content = styled.div`
 	padding: 10px;
 
 	> div {
