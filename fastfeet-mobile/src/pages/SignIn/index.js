@@ -1,14 +1,22 @@
 import React from 'react';
-import { Image, StatusBar, Text } from 'react-native';
+import { Image } from 'react-native';
 
-import { Container } from './styles';
-import colors from '../../styles/colors';
+import { Container, Input, FormInput, SubmitButton } from './styles';
+import logo from '~/assets/fastfeet-logo-white.png';
 
 export default function SignIn() {
   return (
     <Container>
-      <StatusBar backgroundColor={colors.primary} />
-      <Text> Olá mundo! </Text>
+      <Image source={logo} />
+      <Input
+        name="id"
+        keyboardType="number-pad"
+        placeholder="Informe seu ID no cadastro"
+        autoCorrect={false}
+        returnKeyType="send"
+        autoCapitalize="none"
+      />
+      <SubmitButton>Entrar no sistema</SubmitButton>
     </Container>
   );
 }

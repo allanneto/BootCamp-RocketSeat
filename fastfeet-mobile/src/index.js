@@ -1,12 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 
-// import { Container } from './styles';
+import App from './App';
 
-export default function src() {
-  return (
-    <View>
-      <Text>Hello world</Text>
-    </View>
-  );
+export default function Index() {
+  return <App />;
 }
