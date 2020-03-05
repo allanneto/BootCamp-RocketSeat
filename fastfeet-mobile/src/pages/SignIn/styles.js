@@ -3,7 +3,10 @@ import styled from 'styled-components/native';
 import Button from '~/components/Button';
 import { Input as UnInput } from '~/components/Form';
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView.attrs({
+  enabled: Platform.OS === 'ios',
+  behavior: 'padding',
+})`
   background: #7d40e7;
   flex: 1;
 

@@ -61,6 +61,8 @@ routes.post(
   DeliveryProblemController.store
 );
 
+routes.get('/deliveryman/:id', DeliverymanController.show);
+
 routes.use(authMiddleware);
 
 routes.post('/users', validateUser.store, UserController.store);
@@ -82,7 +84,7 @@ routes.post(
   DeliverymanController.store
 );
 routes.get('/deliveryman', DeliverymanController.index);
-routes.get('/deliveryman/:id', DeliverymanController.show);
+
 routes.put(
   '/deliveryman/:id',
   validateDeliveryman.update,
