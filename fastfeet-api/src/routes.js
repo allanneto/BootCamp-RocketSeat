@@ -40,6 +40,7 @@ const upload = multer(multerConfig);
 
 routes.post('/sessions', validateSession.store, SessionController.store);
 
+routes.get('/deliveryman/:id', DeliverymanController.show);
 routes.get('/deliveryman/:id/deliveries', DeliverymanActionController.index);
 
 routes.patch(
@@ -60,8 +61,6 @@ routes.post(
   validateDeliveryProblem.store,
   DeliveryProblemController.store
 );
-
-routes.get('/deliveryman/:id', DeliverymanController.show);
 
 routes.use(authMiddleware);
 
