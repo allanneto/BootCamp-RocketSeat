@@ -9,6 +9,7 @@ import api from '~/services/api';
 import { signOut } from '~/store/modules/auth/actions';
 
 import NamePhoto from '~/components/NamePhoto';
+import Delivery from '~/components/Delivery';
 
 import {
   Container,
@@ -26,7 +27,6 @@ import {
 } from './styles';
 
 import colors from '~/styles/colors';
-import { Text } from 'react-native';
 
 export default function Dashboard() {
   const [deliveries, setDeliveries] = useState([]);
@@ -55,8 +55,8 @@ export default function Dashboard() {
       try {
         const response =
           typeDeliveries === 'PENDENTES'
-            ? await api.get(`/deliveryman/${auth.id}`)
-            : await api.get(`/deliveryman/${auth.id}/deliveries`);
+            ? await api.get(`/deliverymen/${auth.id}`)
+            : await api.get(`/deliverymen/${auth.id}/deliveries`);
 
         // const data = response.data.map(delivery => ({
         //   ...delivery,

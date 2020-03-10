@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import multer from 'multer';
 import multerConfig from './config/multer';
 
@@ -7,6 +8,7 @@ import multerConfig from './config/multer';
  */
 
 import SessionController from './app/controllers/SessionController';
+import DeliverymanPendingController from './app/controllers/DeliverymanPendingController';
 import DeliverymanActionController from './app/controllers/DeliverymanActionController';
 import DeliveredController from './app/controllers/DeliveredController';
 import UserController from './app/controllers/UserController';
@@ -40,8 +42,8 @@ const upload = multer(multerConfig);
 
 routes.post('/sessions', validateSession.store, SessionController.store);
 
-routes.get('/deliveryman/:id', DeliverymanController.show);
-routes.get('/deliveryman/:id/deliveries', DeliverymanActionController.index);
+routes.get('/deliverymen/:id', DeliverymanPendingController.index);
+routes.get('/deliverymen/:id/deliveries', DeliverymanActionController.index);
 
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/withdraw',
@@ -83,7 +85,7 @@ routes.post(
   DeliverymanController.store
 );
 routes.get('/deliveryman', DeliverymanController.index);
-
+routes.get('/deliveryman/:id', DeliverymanController.show);
 routes.put(
   '/deliveryman/:id',
   validateDeliveryman.update,
