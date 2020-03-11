@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import SignIn from '~/pages/SignIn';
 
-import DashboardRoute from './Dashboard.routes';
+import DashboardRoutes from './Dashboard.routes';
 
 const Stack = createStackNavigator();
 
@@ -29,7 +29,7 @@ export default function Routes({ signed }) {
           <Stack.Screen
             name="Dashboard"
             options={{ headerShown: false }}
-            component={DashboardRoute}
+            component={DashboardRoutes}
           />
         )}
       </Stack.Navigator>

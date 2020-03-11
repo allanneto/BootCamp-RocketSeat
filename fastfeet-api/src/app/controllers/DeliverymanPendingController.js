@@ -33,7 +33,15 @@ class DeliveryPendingController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['id', 'name', 'city'],
+          attributes: [
+            'id',
+            'name',
+            'city',
+            'street',
+            'number',
+            'state',
+            'postal_code',
+          ],
         },
         {
           model: File,

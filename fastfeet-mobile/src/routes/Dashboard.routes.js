@@ -3,15 +3,14 @@ import { StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import PropTypes from 'prop-types';
 
-import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
+import DeliveryRoutes from '~/routes/Delivery.routes';
 import colors from '~/styles/colors';
 
 const Tab = createBottomTabNavigator();
 
-export default function DashboardRoute() {
+export default function Dashboard() {
   return (
     <>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -27,7 +26,7 @@ export default function DashboardRoute() {
               <Icon name="reorder" size={size} color={color} />
             ),
           }}
-          component={Dashboard}
+          component={DeliveryRoutes}
         />
         <Tab.Screen
           name="Profile"
