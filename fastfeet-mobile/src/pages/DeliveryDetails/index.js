@@ -3,6 +3,7 @@ import { StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import colors from '~/styles/colors';
 
@@ -25,7 +26,7 @@ export default function DeliveryDetails() {
   const route = useRoute();
   const { delivery } = route.params;
 
-  console.tron.log(delivery);
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -71,7 +72,7 @@ export default function DeliveryDetails() {
         </Card>
 
         <Menu>
-          <Option>
+          <Option onPress={() => navigation.navigate('Problem')}>
             <Icon name="highlight-off" color={colors.danger} size={20} />
             <OptionTitle>Informar Problema</OptionTitle>
           </Option>
