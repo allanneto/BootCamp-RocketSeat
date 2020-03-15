@@ -72,7 +72,7 @@ export default function DeliveryDetails() {
         </Card>
 
         <Menu>
-          <Option onPress={() => navigation.navigate('Problem')}>
+          <Option onPress={() => navigation.navigate('Problem', { delivery })}>
             <Icon name="highlight-off" color={colors.danger} size={20} />
             <OptionTitle>Informar Problema</OptionTitle>
           </Option>

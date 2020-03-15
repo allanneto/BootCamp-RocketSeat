@@ -1,18 +1,56 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 
-import colors from '~/styles/colors';
-import { Container, Background, Input, SubmitButton, Title } from './styles';
+import { useRoute, useNavigation } from '@react-navigation/native';
+
+import api from '~/services/api';
+
+import {
+  Container,
+  Background,
+  Content,
+  Form,
+  Input,
+  SubmitButton,
+} from './styles';
 
 export default function ProblemDelivery() {
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { delivery } = route.params;
+  const [description, setDescription] = useState('');
+
+  async function handleSubmit() {
+    try {
+      if (description === '') {
+        Alert.alert('A mensagem precisa ser preenchida.');
+        return;
+      }
+
+      await api.post(`/delivery/${delivery.id}/problems`, { description });
+      Alert.alert(
+        'Sucesso',
+        `Problema cadastrado com sucesso, Delivery #${delivery.id}`
+      );
+
+      navigation.navigate('Entregas');
+    } catch (error) {
+      Alert.alert(
+        'Erro',
+        `Erro ao cadastrar problema para a encomenda #${delivery.id}`
+      );
+    }
+  }
+
   return (
     <Container>
-      <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       <Background />
-      <Input autoCapitalize="none" autoCorrect={false} returnKeyType="send" />
-      <SubmitButton>
-        <Title>Enviar</Title>
-      </SubmitButton>
+      <Content>
+        <Form>
+          <Input value={description} onChangeText={setDescription} />
+          <SubmitButton onPress={handleSubmit}>Enviar</SubmitButton>
+        </Form>
+      </Content>
     </Container>
   );
 }
