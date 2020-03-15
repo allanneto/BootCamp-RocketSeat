@@ -18,6 +18,8 @@ export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state?.user?.profile);
 
+  console.tron.log(profile?.avatar?.url);
+
   function handleLogout() {
     dispatch(signOut());
   }
@@ -26,7 +28,7 @@ export default function Profile() {
     <Container>
       <Content>
         {profile?.avatar ? (
-          <Avatar source={{ uri: profile?.avatar?.url }} />
+          <Avatar source={{ uri: profile.avatar?.url }} />
         ) : (
           <>{profile?.name && <NamePhoto name={profile?.name} />}</>
         )}

@@ -20,7 +20,11 @@ export const Action = styled.View`
   padding: 0 20px;
 `;
 
-export const Avatar = styled.Image``;
+export const Avatar = styled.Image`
+  width: 68px;
+  height: 68px;
+  border-radius: 34px;
+`;
 
 export const TitleProfile = styled.View`
   flex: 3;
