@@ -42,27 +42,29 @@ const upload = multer(multerConfig);
 
 routes.post('/sessions', validateSession.store, SessionController.store);
 
-routes.get('/deliverymen/:id', DeliverymanPendingController.index);
-routes.get('/deliverymen/:id/deliveries', DeliverymanActionController.index);
+routes.get('/deliverymen/:id', DeliverymanPendingController.index); // Pendentes
+routes.get('/deliverymen/:id/deliveries', DeliverymanActionController.index); // Entregues
 
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/withdraw',
   validateWithdraw.update,
   WithdrawController.update
-);
+); // Retirada
 
 routes.patch(
   '/deliveryman/:id/deliveries/:delivery_id/deliver',
   upload.single('file'),
   DeliveredController.update
-);
+); // Foto assinatura
 
-routes.get('/delivery/:delivery_id/problems', DeliveryProblemController.index);
+routes.get('/delivery/:delivery_id/problems', DeliveryProblemController.index); // Listar Problemas
 routes.post(
   '/delivery/:delivery_id/problems',
   validateDeliveryProblem.store,
   DeliveryProblemController.store
-);
+); // Criar Problemas
+
+routes.get('/deliveryman/:id', DeliverymanController.show); // Login APP
 
 routes.use(authMiddleware);
 
@@ -85,7 +87,7 @@ routes.post(
   DeliverymanController.store
 );
 routes.get('/deliveryman', DeliverymanController.index);
-routes.get('/deliveryman/:id', DeliverymanController.show);
+
 routes.put(
   '/deliveryman/:id',
   validateDeliveryman.update,

@@ -17,7 +17,7 @@ class DeliveryProblemController {
       where: {
         delivery_id,
       },
-      attributes: ['id', 'description'],
+      attributes: ['id', 'description', 'created_at'],
       include: [
         {
           model: Delivery,
