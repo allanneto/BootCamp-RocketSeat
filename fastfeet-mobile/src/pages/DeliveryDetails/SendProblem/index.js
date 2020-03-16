@@ -14,10 +14,10 @@ import {
   SubmitButton,
 } from './styles';
 
-export default function ProblemDelivery() {
+export default function SendProblem() {
   const route = useRoute();
+  const { id } = route.params;
   const navigation = useNavigation();
-  const { delivery } = route.params;
   const [description, setDescription] = useState('');
 
   async function handleSubmit() {
@@ -27,18 +27,15 @@ export default function ProblemDelivery() {
         return;
       }
 
-      await api.post(`/delivery/${delivery.id}/problems`, { description });
+      await api.post(`/delivery/${id}/problems`, { description });
       Alert.alert(
         'Sucesso',
-        `Problema cadastrado com sucesso, Delivery #${delivery.id}`
+        `Problema cadastrado com sucesso, Delivery #${id}`
       );
 
       navigation.navigate('Entregas');
     } catch (error) {
-      Alert.alert(
-        'Erro',
-        `Erro ao cadastrar problema para a encomenda #${delivery.id}`
-      );
+      Alert.alert('Erro', `Erro ao cadastrar problema para a encomenda #${id}`);
     }
   }
 

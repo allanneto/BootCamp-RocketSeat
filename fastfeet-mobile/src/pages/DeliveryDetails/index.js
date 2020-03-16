@@ -1,10 +1,12 @@
 import React from 'react';
-import { StatusBar, View } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
+import { useSelector } from 'react-redux';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { useRoute } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
+import api from '~/services/api';
 import colors from '~/styles/colors';
 
 import {
@@ -23,10 +25,44 @@ import {
 } from './styles';
 
 export default function DeliveryDetails() {
+  const auth = useSelector(state => state.auth);
   const route = useRoute();
   const { delivery } = route.params;
 
   const navigation = useNavigation();
+
+  async function handleDeliveryWithdraw() {
+    async function delievryWithdraw() {
+      try {
+        await api.patch(
+          `/deliveryman/${auth.id}/deliveries/${delivery.id}/withdraw`,
+          {
+            start_date: new Date(),
+          }
+        );
+      } catch (err) {
+        Alert.alert('Horário de retirda inválida.');
+      }
+    }
+    Alert.alert(
+      'Confirmação de retirada',
+      'Confirma que deseja realizar a retirada desta encomenda?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'destructive',
+        },
+        {
+          text: 'Confirmar',
+          onPress: delievryWithdraw,
+        },
+      ],
+      {
+        cancelable: false,
+      }
+    );
+    navigation.navigate('Entregas');
+  }
 
   return (
     <Container>
@@ -72,16 +108,22 @@ export default function DeliveryDetails() {
         </Card>
 
         <Menu>
-          <Option onPress={() => navigation.navigate('Problem', { delivery })}>
+          <Option
+            onPress={() => navigation.navigate('Problem', { id: delivery.id })}
+          >
             <Icon name="highlight-off" color={colors.danger} size={20} />
             <OptionTitle>Informar Problema</OptionTitle>
           </Option>
-          <Option>
+          <Option
+            onPress={() =>
+              navigation.navigate('ProblemsDetails', { id: delivery.id })
+            }
+          >
             <Icon name="info-outline" color="#E7BA40" size={20} />
             <OptionTitle>Visualizar Problemas</OptionTitle>
           </Option>
           {delivery.status === 'PENDENTE' ? (
-            <Option>
+            <Option onPress={handleDeliveryWithdraw}>
               <Icon name="local-shipping" color={colors.primary} size={20} />
               <OptionTitle>Realizar Retirada</OptionTitle>
             </Option>

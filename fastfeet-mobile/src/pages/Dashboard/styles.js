@@ -77,3 +77,13 @@ export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 20 },
 })``;
+
+export const NoDelivery = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`;
+
+export const TitleNoDelivery = styled(Text)`
+  font-size: 24px;
+`;

@@ -4,8 +4,6 @@ import { parseISO, getHours } from 'date-fns';
 
 import Deliveryman from '../models/Deliveryman';
 import Delivery from '../models/Delivery';
-import Recipient from '../models/Recipient';
-import File from '../models/File';
 
 class WithdrawController {
   async update(req, res) {

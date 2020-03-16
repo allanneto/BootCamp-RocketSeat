@@ -35,7 +35,7 @@ export const Input = styled.TextInput.attrs({
 `;
 
 export const SubmitButton = styled(Button)`
-  background: #7d40e7;
+  background: ${colors.primary};
   height: 45px;
   border-radius: 4px;
   margin-top: 20px;

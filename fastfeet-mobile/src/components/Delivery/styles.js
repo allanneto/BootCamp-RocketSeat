@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import Text from '~/components/Text';
+import Button from '~/components/Button';
 import colors from '~/styles/colors';
 
 export const Container = styled.View`
@@ -51,4 +52,12 @@ export const TextDetail = styled(Text)`
 
 export const TextLink = styled(TextDetail)`
   color: ${colors.primary};
+`;
+
+export const Withdraw = styled(Button)`
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 4px;
+  background: #82bf18;
 `;

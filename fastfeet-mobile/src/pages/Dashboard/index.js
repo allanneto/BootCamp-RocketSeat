@@ -24,6 +24,8 @@ import {
   Options,
   Option,
   List,
+  NoDelivery,
+  TitleNoDelivery,
 } from './styles';
 
 import colors from '~/styles/colors';
@@ -68,6 +70,7 @@ export default function Dashboard() {
             : '--/--/--',
         }));
         setDeliveries(data);
+        console.tron.log(deliveries.length);
       } catch (error) {
         console.log(error);
       }
@@ -121,11 +124,18 @@ export default function Dashboard() {
         </Options>
       </Menu>
 
-      <List
-        data={deliveries}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => <Delivery data={item} />}
-      />
+      {deliveries.length > 0 ? (
+        <List
+          data={deliveries}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => <Delivery data={item} />}
+        />
+      ) : (
+        <NoDelivery>
+          <Icon name="mood-bad" size={64} />
+          <TitleNoDelivery>Sem encomendas</TitleNoDelivery>
+        </NoDelivery>
+      )}
     </Container>
   );
 }

@@ -4,7 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Dashboard from '~/pages/Dashboard';
 import DeliveryDetails from '~/pages/DeliveryDetails';
-import ProblemDelivery from '~/pages/DeliveryDetails/ProblemDelivery';
+import SendProblem from '~/pages/DeliveryDetails/SendProblem';
+import ProblemsDetails from '~/pages/DeliveryDetails/ProblemsDetails';
 import colors from '~/styles/colors';
 
 const Stack = createStackNavigator();
@@ -43,7 +44,21 @@ export default function DeliveryRoutes() {
             backgroundColor: colors.primary,
           },
         }}
-        component={ProblemDelivery}
+        component={SendProblem}
+      />
+      <Stack.Screen
+        name="ProblemsDetails"
+        options={{
+          title: 'Visualizar problemas',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+        }}
+        component={ProblemsDetails}
       />
     </Stack.Navigator>
   );
