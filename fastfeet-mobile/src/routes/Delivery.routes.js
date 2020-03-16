@@ -6,6 +6,8 @@ import Dashboard from '~/pages/Dashboard';
 import DeliveryDetails from '~/pages/DeliveryDetails';
 import SendProblem from '~/pages/DeliveryDetails/SendProblem';
 import ProblemsDetails from '~/pages/DeliveryDetails/ProblemsDetails';
+import DeliveryConfirmPhoto from '~/pages/DeliveryDetails/DeliveryConfirmPhoto';
+
 import colors from '~/styles/colors';
 
 const Stack = createStackNavigator();
@@ -59,6 +61,20 @@ export default function DeliveryRoutes() {
           },
         }}
         component={ProblemsDetails}
+      />
+      <Stack.Screen
+        name="Photo"
+        options={{
+          title: 'Confirmar entrega',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+        }}
+        component={DeliveryConfirmPhoto}
       />
     </Stack.Navigator>
   );

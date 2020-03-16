@@ -7,7 +7,6 @@ import File from '../models/File';
 
 class DeliverymanActionController {
   async index(req, res) {
-    // const { ended = 'true' } = req.params;
     const { id } = req.params;
 
     const delivermanExists = await Deliveryman.findByPk(id);
@@ -20,8 +19,7 @@ class DeliverymanActionController {
       where: {
         deliveryman_id: id,
         signature_id: { [Op.not]: null },
-        canceled_at: null,
-        // end_date: ended === true ? { [Op.not]: null } : null,
+        status: 'ENTREGUE',
       },
       attributes: [
         'id',
@@ -37,7 +35,16 @@ class DeliverymanActionController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['id', 'name', 'city'],
+          attributes: [
+            'id',
+            'name',
+            'state',
+            'city',
+            'street',
+            'number',
+            'compliment',
+            'postal_code',
+          ],
         },
         {
           model: File,

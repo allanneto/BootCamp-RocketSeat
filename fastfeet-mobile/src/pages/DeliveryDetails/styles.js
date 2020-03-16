@@ -70,6 +70,8 @@ export const Option = styled.TouchableOpacity`
   align-items: center;
   border: 1px solid #eee;
   flex: 1;
+
+  display: ${props => (props.disabled ? 'none' : 'flex')};
 `;
 
 export const OptionTitle = styled(Text)`

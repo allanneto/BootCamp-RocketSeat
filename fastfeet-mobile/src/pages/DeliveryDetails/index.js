@@ -109,6 +109,7 @@ export default function DeliveryDetails() {
 
         <Menu>
           <Option
+            disabled={delivery.status === 'ENTREGUE'}
             onPress={() => navigation.navigate('Problem', { id: delivery.id })}
           >
             <Icon name="highlight-off" color={colors.danger} size={20} />
@@ -128,7 +129,10 @@ export default function DeliveryDetails() {
               <OptionTitle>Realizar Retirada</OptionTitle>
             </Option>
           ) : (
-            <Option>
+            <Option
+              disabled={delivery.status === 'ENTREGUE'}
+              onPress={() => navigation.navigate('Photo')}
+            >
               <Icon name="check-circle" color={colors.primary} size={20} />
               <OptionTitle>Confirmar Entrega</OptionTitle>
             </Option>
