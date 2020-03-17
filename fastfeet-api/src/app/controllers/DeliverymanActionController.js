@@ -8,6 +8,7 @@ import File from '../models/File';
 class DeliverymanActionController {
   async index(req, res) {
     const { id } = req.params;
+    const { page = 1 } = req.query;
 
     const delivermanExists = await Deliveryman.findByPk(id);
 
@@ -31,6 +32,8 @@ class DeliverymanActionController {
         'canceled_at',
       ],
       order: ['id'],
+      limit: 5,
+      offset: (page - 1) * 5,
       include: [
         {
           model: Recipient,
