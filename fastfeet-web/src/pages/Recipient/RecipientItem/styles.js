@@ -9,7 +9,7 @@ export const Container = styled.div`
 	padding-right: 13px;
 
 	display: grid;
-	grid-template-columns: 0.5fr 1.5fr 2fr 0.5fr;
+	grid-template-columns: 0.5fr 1.5fr 2fr 1fr;
 
 	img {
 		height: 35px;

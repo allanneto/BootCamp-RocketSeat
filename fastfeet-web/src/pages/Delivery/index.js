@@ -82,7 +82,7 @@ export default function Delivery() {
 					<section>
 						<strong>ID</strong>
 						<strong>Destinatário</strong>
-						<strong>Produto</strong>
+						<strong>Entregador</strong>
 						<strong>Cidade</strong>
 						<strong>Estado</strong>
 						<strong>Status</strong>

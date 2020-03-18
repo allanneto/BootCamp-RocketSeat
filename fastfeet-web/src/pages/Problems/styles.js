@@ -48,8 +48,19 @@ export const Grid = styled.div`
 `;
 
 export const Button = styled(SimpleButton)`
-	width: 100px;
+	padding: 0 16px;
 	height: 36px;
+
+	font-size: 14px;
+	font-weight: bold;
+
+	color: #fff;
+	border: 0;
+	border-radius: 4px;
+
+	display: flex;
+	text-align: center;
+	align-items: center;
 
 	&:disabled {
 		cursor: not-allowed;

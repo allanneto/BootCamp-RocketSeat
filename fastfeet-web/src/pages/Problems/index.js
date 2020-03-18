@@ -47,14 +47,14 @@ export default function Problems() {
 						onClick={() => setPage(page - 1)}
 						type="button"
 					>
-						voltar
+						VOLTAR
 					</Button>
 					<Button
 						disabled={problems.length < 5}
 						type="button"
 						onClick={() => setPage(page + 1)}
 					>
-						proximo
+						PRÓXIMO
 					</Button>
 				</section>
 			</Content>

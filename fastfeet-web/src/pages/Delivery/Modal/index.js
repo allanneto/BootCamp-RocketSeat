@@ -7,6 +7,8 @@ import Modal from '~/components/Modal';
 import { Container } from './styles';
 
 export default function DeliveryModal({ data }) {
+	console.log(data);
+
 	return (
 		<Modal>
 			<Container>
@@ -19,7 +21,10 @@ export default function DeliveryModal({ data }) {
 						{data.recipient.city} - {data.recipient.state}
 					</small>
 					<small>{data.recipient.postal_code}</small>
+					<strong>Produto</strong>
+					<small>{data.product}</small>
 				</div>
+
 				{data.start_dateFormated ? (
 					<div>
 						<strong>Datas</strong>
@@ -54,6 +59,7 @@ export default function DeliveryModal({ data }) {
 
 DeliveryModal.propTypes = {
 	data: PropTypes.shape({
+		product: PropTypes.string,
 		start_dateFormated: PropTypes.string,
 		end_dateFormated: PropTypes.string,
 		canceled_atFormated: PropTypes.string,

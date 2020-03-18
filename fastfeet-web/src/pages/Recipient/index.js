@@ -28,12 +28,24 @@ export default function Recipients() {
 		loadRecipient();
 	}, [page]); //eslint-disable-line
 
+	async function handleSearchDelivery(e) {
+		setPage(1);
+		const response = await api.get('/recipient', {
+			params: {
+				q: e.target.value,
+				page,
+			},
+		});
+
+		setRecipient(response.data);
+	}
+
 	return (
 		<Container>
 			<Content>
 				<HeaderList title="Gerenciando encomendas">
 					<SearchInput
-						// onChange={handleSearchDelivery}
+						onChange={handleSearchDelivery}
 						type="text"
 						placeholder="Buscar por encomendas"
 					/>

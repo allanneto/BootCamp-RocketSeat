@@ -5,13 +5,14 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 import More from '~/components/MorePopUp';
+import NamePhoto from '~/components/NamePhoto';
 import api from '~/services/api';
 import history from '~/services/history';
 import { statusColors, colors } from '~/styles/colors';
 
 import DeliveryModal from '../Modal';
 import Status from './DeliveryStatus';
-import { Container, Content } from './styles';
+import { Container, Content, Avatar } from './styles';
 
 export default function DeliveryItem({ data, updateDeliveries }) {
 	async function handleDelete() {
@@ -35,7 +36,19 @@ export default function DeliveryItem({ data, updateDeliveries }) {
 		<Container>
 			<small>#{data.id}</small>
 			<small>{data.recipient.name}</small>
-			<small>{data.product}</small>
+			<small>
+				{data.deliveryman.avatar ? (
+					<Avatar>
+						<img src={data.deliveryman.avatar.url} alt="AvatarUrl" />
+						<small>{data.deliveryman.name}</small>
+					</Avatar>
+				) : (
+					<Avatar>
+						<NamePhoto name={data.deliveryman.name} />
+						<small>{data.deliveryman.name}</small>
+					</Avatar>
+				)}
+			</small>
 			<small>{data.recipient.city}</small>
 			<small>{data.recipient.state}</small>
 			<Status
@@ -78,6 +91,10 @@ DeliveryItem.propTypes = {
 		city: PropTypes.string,
 		state: PropTypes.string,
 		status: PropTypes.string,
+		deliveryman: PropTypes.shape({
+			avatar: PropTypes.string,
+			name: PropTypes.string,
+		}).isRequired,
 		recipient: PropTypes.shape({
 			name: PropTypes.string,
 			city: PropTypes.string,

@@ -21,6 +21,7 @@ export const Container = styled.div`
 			color: #444;
 			font-size: 14px;
 			margin-bottom: 4px;
+			margin-top: 4px;
 		}
 
 		small {

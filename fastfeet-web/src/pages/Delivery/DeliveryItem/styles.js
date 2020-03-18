@@ -64,3 +64,29 @@ export const Content = styled.div`
 		}
 	}
 `;
+
+export const Avatar = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	> img {
+		height: 35px;
+		width: 35px;
+		border-radius: 50%;
+		align-self: center;
+	}
+
+	> small {
+		font-size: 16px;
+		color: #666;
+		text-align: left;
+
+		margin: auto 0;
+	}
+
+	> small:last-child {
+		margin: 0px 5px;
+	}
+`;
