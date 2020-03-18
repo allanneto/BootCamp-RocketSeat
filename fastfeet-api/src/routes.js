@@ -36,6 +36,7 @@ import validateWithdraw from './app/validators/Withdraw';
  * MIDDLEWARE
  */
 import authMiddleware from './app/middlewares/auth';
+import DeliveryProblem from './app/controllers/DeliveryProblem';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -103,6 +104,7 @@ routes.get('/delivery/:id', DeliveryController.show);
 routes.put('/delivery/:id', validateDelivery.update, DeliveryController.update);
 routes.delete('/delivery/:id', DeliveryController.delete);
 
+routes.get('/withproblem', DeliveryProblem.index);
 routes.get('/problem', ProblemAdminController.index);
 routes.patch(
   '/problem/:problem_id/cancel-delivery',

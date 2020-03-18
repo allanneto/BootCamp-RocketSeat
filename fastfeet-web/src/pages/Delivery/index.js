@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdWarning } from 'react-icons/md';
 
 import { parseISO, format } from 'date-fns';
 
@@ -8,6 +8,7 @@ import { SearchInput } from '~/components/Form';
 import HeaderList from '~/components/HeaderList';
 import api from '~/services/api';
 import history from '~/services/history';
+import { statusColors } from '~/styles/colors';
 
 import DeliveryItem from './DeliveryItem';
 import { Container, Content, Grid, Button } from './styles';
@@ -61,6 +62,18 @@ export default function Delivery() {
 		// eslint-disable-next-line
 	}, [page]);
 
+	async function handleWithProblems() {
+		const response = await api.get('/withproblem', {
+			params: {
+				page,
+			},
+		});
+
+		const data = formatDates(response.data);
+
+		setDeliveries(data);
+	}
+
 	return (
 		<Container>
 			<Content>
@@ -69,6 +82,13 @@ export default function Delivery() {
 						onChange={handleSearchDelivery}
 						type="text"
 						placeholder="Buscar por encomendas"
+					/>
+					<IconButton
+						background={statusColors.PENDENTE.color}
+						Icon={MdWarning}
+						title="Encomendas com problemas"
+						action={handleWithProblems}
+						type="button"
 					/>
 					<IconButton
 						Icon={MdAdd}
